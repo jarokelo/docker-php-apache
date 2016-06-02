@@ -1,0 +1,29 @@
+image: docker:git
+services:
+- docker:dind
+
+variables:
+    CONTAINER_TEST_IMAGE: gitlab-registry.mito.hu/base-images/php-apache:$CI_BUILD_REF_NAME
+    CONTAINER_RELEASE_IMAGE: gitlab-registry.mito.hu/base-images/php-apache:latest
+
+before_script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN gitlab-registry.mito.hu
+
+build:
+    stage: build
+    tags:
+        - docker-privileged
+    script:
+        - docker build -t $CONTAINER_TEST_IMAGE .
+        - docker push $CONTAINER_TEST_IMAGE
+
+release-image:
+    stage: deploy
+    tags:
+        - docker-privileged
+    script:
+        - docker pull $CONTAINER_TEST_IMAGE
+        - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
+        - docker push $CONTAINER_RELEASE_IMAGE
+    only:
+        - master
