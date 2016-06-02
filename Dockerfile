@@ -24,7 +24,8 @@ RUN a2enmod rewrite
 RUN a2dismod mpm_event && a2enmod mpm_prefork
 ADD php.ini /etc/php5/apache2/php.ini
 ADD envvars /etc/apache2/envvars
-ADD default.conf /etc/apache2/sites-enabled/000-default.conf
+ADD other-vhosts-access-log.conf /etc/apache2/conf-available/other-vhosts-access-log.conf
+#ADD default.conf /etc/apache2/sites-enabled/000-default.conf
 
 RUN rm -rf /var/www/html && mkdir -p /var/www/html && chown -R www-data:www-data /var/www/html
 
