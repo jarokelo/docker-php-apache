@@ -10,6 +10,9 @@ RUN apt-get update && \
     php5-memcache php5-mcrypt \
     locales \
     cron \
+    rsyslog \
+    supervisor \
+    ssmtp \
     && \
     rm -rf /var/lib/apt/lists/*
 
@@ -25,8 +28,16 @@ ADD default.conf /etc/apache2/sites-enabled/000-default.conf
 
 RUN rm -rf /var/www/html && mkdir -p /var/www/html && chown -R www-data:www-data /var/www/html
 
-COPY apache2-foreground /usr/local/bin/
+# add supervisor config
+ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# add syslog config
+ADD rsyslog.conf /etc/rsyslog.conf
+ADD apache_syslog /usr/local/bin/apache_syslog
+
+ADD ssmtp.conf /etc/ssmtp/ssmtp.conf
+
 WORKDIR /var/www/html
 
 EXPOSE 80
-CMD ["apache2-foreground"]
+CMD ["/usr/bin/supervisord"]
