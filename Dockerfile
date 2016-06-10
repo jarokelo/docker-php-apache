@@ -1,5 +1,4 @@
-FROM debian:jessie
-ENV DEBIAN_FRONTEND noninteractive
+FROM gitlab-registry.mito.hu/base-images/debian:jessie
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -8,17 +7,12 @@ RUN apt-get update && \
     php5-gd php5-curl php5-intl php5-mysql php5-pgsql \
     php5-sqlite php5-xmlrpc php5-xsl php5-json \
     php5-memcache php5-mcrypt \
-    locales \
     cron \
     rsyslog \
     supervisor \
     ssmtp \
     && \
     rm -rf /var/lib/apt/lists/*
-
-ADD locale.gen /etc/locale.gen
-RUN locale-gen
-ENV LC_CTYPE en_US.UTF-8
 
 RUN a2enmod rewrite
 RUN a2dismod mpm_event && a2enmod mpm_prefork
