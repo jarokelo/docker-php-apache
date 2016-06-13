@@ -1,9 +1,9 @@
 stages:
-    - build-base
-    - build-dev
+    - base-build
+    - dev-build
 
 docker-base-image:
-    stage: build-base # build this first
+    stage: base-build # build this first
     variables:
         REGISTRY: gitlab-registry.mito.hu/
         TAG: $CI_BUILD_REF_NAME # branch or tag name
@@ -15,7 +15,7 @@ docker-base-image:
         - docker-builder
 
 docker-dev-image:
-    stage: build-dev # build this second, because it depends on the base image
+    stage: dev-build # build this second, because it depends on the base image
     variables:
         REGISTRY: gitlab-registry.mito.hu/
         TAG: $CI_BUILD_REF_NAME # branch or tag name
