@@ -1,9 +1,29 @@
-docker:
+stages:
+    - build-base
+    - build-dev
+
+docker-base-image:
+    stage: build-base # build this first
     variables:
         REGISTRY: gitlab-registry.mito.hu/
         TAG: $CI_BUILD_REF_NAME # branch or tag name
         DEFAULT_TAG: "master" # set master as latest
         BUILD_DIR: $CI_PROJECT_DIR
+    script:
+        - echo "docker-builder should not execute this"
+    tags:
+        - docker-builder
+
+docker-dev-image:
+    stage: build-dev # build this second, because it depends on the base image
+    variables:
+        REGISTRY: gitlab-registry.mito.hu/
+        TAG: $CI_BUILD_REF_NAME # branch or tag name
+        TAG_SUFFIX: "dev" # available as :dev
+        DEFAULT_TAG: "master" # set master as latest
+        BUILD_DIR: $CI_PROJECT_DIR
+        DOCKERFILE: Dockerfile.dev
+        BUILD_WITH_TOKEN: "true" # needs to be able to pull base image
     script:
         - echo "docker-builder should not execute this"
     tags:
