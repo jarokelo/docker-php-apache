@@ -7,7 +7,6 @@ RUN apt-get update && \
     php5-gd php5-curl php5-intl php5-mysql php5-pgsql \
     php5-sqlite php5-xmlrpc php5-xsl php5-json \
     php5-memcache php5-mcrypt \
-    cron \
     rsyslog \
     supervisor \
     ssmtp \
@@ -20,6 +19,17 @@ ADD php.ini /etc/php5/apache2/php.ini
 ADD envvars /etc/apache2/envvars
 ADD other-vhosts-access-log.conf /etc/apache2/conf-available/other-vhosts-access-log.conf
 #ADD default.conf /etc/apache2/sites-enabled/000-default.conf
+
+# download and install go-cron
+ENV GO_CRON 0.2.1
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    curl \
+    && \
+    curl -SL "https://github.com/nkovacs/go-cron/releases/download/$GO_CRON/go-cron-linux-amd64" -o /usr/local/bin/go-cron \
+    && chmod a+x /usr/local/bin/go-cron \
+    && apt-get purge -y --auto-remove curl \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN rm -rf /var/www/html && mkdir -p /var/www/html && chown -R www-data:www-data /var/www/html
 
