@@ -8,8 +8,12 @@ RUN apt-get update && \
     php5-sqlite php5-xmlrpc php5-xsl php5-json \
     php5-memcache php5-mcrypt \
     rsyslog \
-    supervisor \
+    python \
+    python-setuptools \
+    python-pkg-resources \
     ssmtp \
+    && easy_install supervisor \
+    && apt-get purge -y --auto-remove python-setuptools \
     && \
     rm -rf /var/lib/apt/lists/*
 
@@ -33,8 +37,13 @@ RUN apt-get update && \
 
 RUN rm -rf /var/www/html && mkdir -p /var/www/html && chown -R www-data:www-data /var/www/html
 
+ENV CRON_WORKDIR="/var/www/html"
+
 # add supervisor config
-ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+ADD supervisord.conf /etc/supervisor/supervisord.conf
+ADD supervisor/* /etc/supervisor/conf.d/
+# create log directory
+RUN mkdir -p /var/log/supervisor
 
 # add syslog config
 ADD rsyslog.conf /etc/rsyslog.conf
@@ -45,4 +54,4 @@ ADD ssmtp.conf /etc/ssmtp/ssmtp.conf
 WORKDIR /var/www/html
 
 EXPOSE 80
-CMD ["/usr/bin/supervisord"]
+CMD ["/usr/local/bin/supervisord"]
