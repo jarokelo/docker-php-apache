@@ -39,6 +39,8 @@ RUN rm -rf /var/www/html && mkdir -p /var/www/html && chown -R www-data:www-data
 
 ENV CRON_WORKDIR="/var/www/html"
 
+ADD supervisor-watcher /usr/local/bin/supervisor-watcher
+
 # add supervisor config
 ADD supervisord.conf /etc/supervisor/supervisord.conf
 ADD supervisor/* /etc/supervisor/conf.d/
