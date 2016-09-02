@@ -1,4 +1,4 @@
-FROM gitlab-registry.mito.hu/base-images/php-apache
+FROM gitlab-registry.mito.hu/base-images/php7-apache
 
 # install curl to download nodejs
 # install git, composer and npm needs it

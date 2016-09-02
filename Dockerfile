@@ -1,12 +1,19 @@
 FROM gitlab-registry.mito.hu/base-images/debian:jessie
 
+RUN apt-get update && apt-get install -y --no-install-recommends wget
+
+RUN echo "deb http://packages.dotdeb.org jessie all" | tee -a /etc/apt/sources.list
+RUN echo "deb-src http://packages.dotdeb.org jessie all" | tee -a /etc/apt/sources.list
+
+RUN wget http://www.dotdeb.org/dotdeb.gpg && apt-key add dotdeb.gpg
+
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     ca-certificates \
-    apache2 apache2-mpm-prefork php5-cli libapache2-mod-php5 \
-    php5-gd php5-curl php5-intl php5-mysql php5-pgsql \
-    php5-sqlite php5-xmlrpc php5-xsl php5-json \
-    php5-memcache php5-mcrypt \
+    apache2 apache2-mpm-prefork php7.0-cli libapache2-mod-php7.0 \
+    php7.0-gd php7.0-curl php7.0-intl php7.0-mysql php7.0-pgsql \
+    php7.0-sqlite php7.0-xmlrpc php7.0-xsl php7.0-json \
+    php7.0-memcache php7.0-mcrypt \
     rsyslog \
     python \
     python-setuptools \
@@ -19,7 +26,7 @@ RUN apt-get update && \
 
 RUN a2enmod rewrite
 RUN a2dismod mpm_event && a2enmod mpm_prefork
-ADD php.ini /etc/php5/apache2/php.ini
+#ADD php.ini /etc/php5/apache2/php.ini
 ADD envvars /etc/apache2/envvars
 ADD other-vhosts-access-log.conf /etc/apache2/conf-available/other-vhosts-access-log.conf
 #ADD default.conf /etc/apache2/sites-enabled/000-default.conf
