@@ -4,7 +4,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     ca-certificates \
     wget \
-    && wget -qO - http://www.dotdeb.org/dotdeb.gpg | apt-key add - \
+    && wget -qO - https://www.dotdeb.org/dotdeb.gpg | apt-key add - \
     && apt-get purge -y --auto-remove wget \
     && \
     rm -rf /var/lib/apt/lists/*
