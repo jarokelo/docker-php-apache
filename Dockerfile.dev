@@ -34,6 +34,9 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
   && tar -xzf "node-v$NODE_VERSION-linux-x64.tar.gz" -C /usr/local --strip-components=1 --no-same-owner \
   && rm "node-v$NODE_VERSION-linux-x64.tar.gz" SHASUMS256.txt.asc SHASUMS256.txt
 
+ADD php_dev.ini /etc/php/7.0/apache2/conf.d/php_dev.ini
+ADD php_dev.ini /etc/php/7.0/cli/conf.d/php_dev.ini
+
 RUN npm update -g npm
 
 # install composer

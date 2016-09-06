@@ -34,6 +34,7 @@ RUN apt-get update && \
 RUN a2enmod rewrite
 RUN a2dismod mpm_event && a2enmod mpm_prefork
 ADD php.ini /etc/php/7.0/apache2/php.ini
+ADD php.ini /etc/php/7.0/cli/php.ini
 ADD envvars /etc/apache2/envvars
 ADD other-vhosts-access-log.conf /etc/apache2/conf-available/other-vhosts-access-log.conf
 #ADD default.conf /etc/apache2/sites-enabled/000-default.conf
