@@ -1,11 +1,16 @@
 FROM gitlab-registry.mito.hu/base-images/debian:jessie
 
-RUN apt-get update && apt-get install -y --no-install-recommends wget
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    ca-certificates \
+    wget \
+    && wget -qO - http://www.dotdeb.org/dotdeb.gpg | apt-key add - \
+    && apt-get purge -y --auto-remove wget \
+    && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN echo "deb http://packages.dotdeb.org jessie all" | tee -a /etc/apt/sources.list
 RUN echo "deb-src http://packages.dotdeb.org jessie all" | tee -a /etc/apt/sources.list
-
-RUN wget http://www.dotdeb.org/dotdeb.gpg && apt-key add dotdeb.gpg
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
