@@ -42,5 +42,5 @@ RUN php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && php -r "unlink('composer-setup.php');"
 
-ADD php.ini /etc/php5/apache2/conf.d/php_apache_dev.ini
-ADD php.ini /etc/php5/cli/conf.d/php_dev.ini
+ADD php_apache_dev.ini /etc/php5/apache2/conf.d/php_apache_dev.ini
+ADD php_dev.ini /etc/php5/cli/conf.d/php_dev.ini
