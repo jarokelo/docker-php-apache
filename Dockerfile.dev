@@ -34,9 +34,6 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
   && tar -xzf "node-v$NODE_VERSION-linux-x64.tar.gz" -C /usr/local --strip-components=1 --no-same-owner \
   && rm "node-v$NODE_VERSION-linux-x64.tar.gz" SHASUMS256.txt.asc SHASUMS256.txt
 
-ADD php_dev.ini /etc/php/7.0/apache2/conf.d/php_dev.ini
-ADD php_dev.ini /etc/php/7.0/cli/conf.d/php_dev.ini
-
 RUN npm update -g npm
 
 # install composer
@@ -44,3 +41,5 @@ RUN php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php
     && php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && php -r "unlink('composer-setup.php');"
+
+ADD php_apache_dev.ini /etc/php/7.0/apache2/conf.d/php_apache_dev.ini
