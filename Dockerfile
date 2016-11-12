@@ -18,7 +18,7 @@ RUN apt-get update && \
     apache2 apache2-mpm-prefork php7.0-cli libapache2-mod-php7.0 \
     php7.0-gd php7.0-curl php7.0-intl php7.0-mysql php7.0-pgsql \
     php7.0-sqlite php7.0-xmlrpc php7.0-xsl php7.0-json \
-    php7.0-memcache php7.0-mcrypt \
+    php7.0-memcache php7.0-mcrypt php7.0-imap \
     php7.0-mbstring \
     php7.0-zip \
     rsyslog \
