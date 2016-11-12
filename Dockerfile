@@ -6,7 +6,7 @@ RUN apt-get update && \
     apache2 apache2-mpm-prefork php5-cli libapache2-mod-php5 \
     php5-gd php5-curl php5-intl php5-mysql php5-pgsql \
     php5-sqlite php5-xmlrpc php5-xsl php5-json \
-    php5-memcache php5-mcrypt \
+    php5-memcache php5-mcrypt php5-imap \
     rsyslog \
     python \
     python-setuptools \
