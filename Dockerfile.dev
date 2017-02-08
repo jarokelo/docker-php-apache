@@ -3,8 +3,9 @@ FROM gitlab-registry.mito.hu/base-images/php-apache
 # install curl to download nodejs
 # install git, composer and npm needs it
 # install bzip2, npm needs it
+# install ssh and rsync for deployment
 RUN apt-get update \
-    && apt-get install -y curl git bzip2 --no-install-recommends \
+    && apt-get install -y curl git bzip2 openssh-client rsync --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # install node, script from official node docker image, modified to use gz
