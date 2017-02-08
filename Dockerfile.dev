@@ -35,7 +35,9 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
   && tar -xzf "node-v$NODE_VERSION-linux-x64.tar.gz" -C /usr/local --strip-components=1 --no-same-owner \
   && rm "node-v$NODE_VERSION-linux-x64.tar.gz" SHASUMS256.txt.asc SHASUMS256.txt
 
-RUN npm update -g npm
+ADD https://www.npmjs.com/install.sh /tmp/nodeinstall.sh
+RUN sh /tmp/nodeinstall.sh
+RUN rm /tmp/nodeinstall.sh
 RUN npm install -g yarn
 
 # install composer
