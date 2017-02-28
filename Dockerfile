@@ -57,6 +57,7 @@ ENV CRON_WORKDIR="/var/www/html"
 
 ADD supervisor-watcher /usr/local/bin/supervisor-watcher
 ADD sigproxy /usr/local/bin/sigproxy
+ADD apache2cleanpid /usr/local/bin/apache2cleanpid
 
 # add supervisor config
 ADD supervisord.conf /etc/supervisor/supervisord.conf
