@@ -1,4 +1,4 @@
-FROM gitlab-registry.mito.hu/base-images/php-apache:php7
+FROM gitlab-registry.mito.hu/base-images/php-apache:php7.1
 
 # install curl to download nodejs
 # install git, composer and npm needs it
@@ -45,5 +45,5 @@ RUN php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && php -r "unlink('composer-setup.php');"
 
-ADD php_apache_dev.ini /etc/php/7.0/apache2/conf.d/php_apache_dev.ini
-ADD php_cli_dev.ini /etc/php/7.0/cli/conf.d/php_cli_dev.ini
+ADD php_apache_dev.ini /etc/php/7.1/apache2/conf.d/php_apache_dev.ini
+ADD php_cli_dev.ini /etc/php/7.1/cli/conf.d/php_cli_dev.ini
