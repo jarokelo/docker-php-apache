@@ -17,7 +17,7 @@ RUN apt-get update && \
     ca-certificates \
     apache2 apache2-mpm-prefork php7.1-cli libapache2-mod-php7.1 \
     php7.1-gd php7.1-curl php7.1-intl php7.1-mysql php7.1-pgsql \
-    php7.1-sqlite php7.1-xmlrpc php7.1-xsl php7.1-json \
+    php7.1-sqlite3 php7.1-xmlrpc php7.1-xsl php7.1-json \
     php7.1-memcache php7.1-mcrypt php7.1-imap \
     php7.1-mbstring \
     php7.1-zip \
