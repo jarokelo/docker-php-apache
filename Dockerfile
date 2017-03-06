@@ -21,6 +21,7 @@ RUN apt-get update && \
     php7.1-memcache php7.1-mcrypt php7.1-imap \
     php7.1-mbstring \
     php7.1-zip \
+    php7.1-soap \
     rsyslog \
     python \
     python-setuptools \
