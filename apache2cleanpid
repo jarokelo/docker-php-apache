@@ -1,0 +1,19 @@
+#!/bin/sh
+
+pidfile=/var/run/apache2/apache2.pid
+
+clean_apache2_pidfile() {
+    if [ ! -f "$pidfile"  ]; then
+        return
+    fi
+    pid=$(cat "$pidfile")
+    if ps -p "$pid"; then
+        # still running, not good
+        echo "Apache2 is already running, cannot start"
+        exit 1
+    fi
+    rm -f "$pidfile"
+}
+
+clean_apache2_pidfile
+exec "$@"
