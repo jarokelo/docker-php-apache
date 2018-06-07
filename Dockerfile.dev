@@ -1,4 +1,4 @@
-FROM jarokelo/php-apache
+FROM jarokelo/php-apache:php5
 
 # install curl to download nodejs
 # install git, composer and npm needs it
