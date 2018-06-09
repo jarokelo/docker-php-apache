@@ -38,7 +38,7 @@ ENV NPM_VERSION 6.1.0
 ADD "https://registry.npmjs.org/npm/-/npm-$NPM_VERSION.tgz" /tmp/npm.tgz
 RUN tar xzf /tmp/npm.tgz --directory /tmp \
   && sh /tmp/package/scripts/install.sh \
-  && rm -rf /tmp
+  && rm -rf /tmp/*
 RUN npm install -g yarn
 
 # install composer
