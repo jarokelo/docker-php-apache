@@ -34,9 +34,11 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
   && tar -xzf "node-v$NODE_VERSION-linux-x64.tar.gz" -C /usr/local --strip-components=1 --no-same-owner \
   && rm "node-v$NODE_VERSION-linux-x64.tar.gz" SHASUMS256.txt.asc SHASUMS256.txt
 
-ADD https://www.npmjs.com/install.sh /tmp/nodeinstall.sh
-RUN sh /tmp/nodeinstall.sh
-RUN rm /tmp/nodeinstall.sh
+ENV NPM_VERSION 6.1.0
+ADD "https://registry.npmjs.org/npm/-/npm-$NPM_VERSION.tgz" /tmp/npm.tgz
+RUN tar xzf /tmp/npm.tgz --directory /tmp \
+  && sh /tmp/package/scripts/install.sh \
+  && rm -rf /tmp
 RUN npm install -g yarn
 
 # install composer
