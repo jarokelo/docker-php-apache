@@ -15,13 +15,14 @@ RUN echo "deb-src https://packages.sury.org/php/ $(lsb_release -sc) main" >> /et
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     ca-certificates \
-    apache2 apache2-mpm-prefork php7.1-cli libapache2-mod-php7.1 \
-    php7.1-gd php7.1-curl php7.1-intl php7.1-mysql php7.1-pgsql \
-    php7.1-sqlite3 php7.1-xmlrpc php7.1-xsl php7.1-json \
-    php7.1-memcache php7.1-mcrypt php7.1-imap \
-    php7.1-mbstring \
-    php7.1-zip \
-    php7.1-soap \
+    apache2 apache2-mpm-prefork php7.2-cli libapache2-mod-php7.2 \
+    php7.2-gd php7.2-curl php7.2-intl php7.2-mysql php7.2-pgsql \
+    php7.2-sqlite3 php7.2-xmlrpc php7.2-xsl php7.2-json \
+    php7.2-memcache php7.2-imap \
+    php7.2-mbstring \
+    php7.2-zip \
+    php7.2-soap \
+    php7.2-dev php-pear libmcrypt-dev make \
     rsyslog \
     python \
     python-setuptools \
@@ -29,14 +30,15 @@ RUN apt-get update && \
     ssmtp \
     && easy_install supervisor \
     && apt-get purge -y --auto-remove python-setuptools \
+    && pecl install mcrypt-snapshot \
     && \
     rm -rf /var/lib/apt/lists/*
 
 RUN a2enmod rewrite
 RUN a2dismod mpm_event && a2enmod mpm_prefork
-ADD php.ini /etc/php/7.1/apache2/php.ini
-ADD php_apache.ini /etc/php/7.1/apache2/conf.d/php_apache.ini
-ADD php.ini /etc/php/7.1/cli/php.ini
+ADD php.ini /etc/php/7.2/apache2/php.ini
+ADD php_apache.ini /etc/php/7.2/apache2/conf.d/php_apache.ini
+ADD php.ini /etc/php/7.2/cli/php.ini
 ADD envvars /etc/apache2/envvars
 ADD other-vhosts-access-log.conf /etc/apache2/conf-available/other-vhosts-access-log.conf
 #ADD default.conf /etc/apache2/sites-enabled/000-default.conf
